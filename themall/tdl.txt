@@ -1,0 +1,1 @@
+1. slugify url esp. from admin dashboard(error)

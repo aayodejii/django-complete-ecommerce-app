@@ -1,0 +1,58 @@
+{% extends 'mallbase.html '%}
+{% load static %}
+{% block title %} Admin - Manage Category {% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+	<form method="post">
+		{% csrf_token %}
+		<div class="row">
+			<div class="col-9">{{ form.name }}</div>
+			<div class="col-3 mb-2">
+				<input type="submit" class="btn btn-danger btn-block" value="Create Category">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				{{ form.description }}
+			</div>
+		</div>
+		{{ form.errors }}
+
+		{% if messages %}
+
+		<div class="alert alert-primary" role="alert">
+			{% for message in messages %}
+			<p> {{ message }} </p>
+			{% endfor %}</div>
+		{% endif %}
+
+
+	</form>
+
+
+
+	<!--Table: displays available categories-->
+	<table class="table table-hover table-bordered table-dark">
+		<thead>
+			<tr>
+				<th scope="col">Category</th>
+				<th scope="col">Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for category in all_categories %}
+			<tr>
+				<td> <a href="{% url 'manageproducts' category.name|lower %}" class="link">{{ category.name }} </a></td>
+				<td>{{ category.description }}</td>
+			</tr>
+			{% empty %}
+		</tbody>
+	</table>
+	Sorry, no Category at the moment.
+	{% endfor %}
+</div>
+
+{% endblock %}

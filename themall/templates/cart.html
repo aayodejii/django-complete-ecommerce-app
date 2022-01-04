@@ -1,0 +1,112 @@
+{% extends 'mallbase.html '%}
+{% load static %}
+{% load humanize %}
+{% load custom_tags %}
+{% block title %} SoloMall Cart {% endblock %}
+{% block content %}
+
+{{ pop }}
+
+
+<div class="container">
+	{% if messages %}
+	<div class="alert alert-danger no-radius" id="message" role="alert">
+		{% for message in messages %}
+		<p> {{ message }} </p>
+		{% endfor %}</div>
+	{% endif %}
+
+	{% if active_orders %}
+	<div class="card card-body no-radius">
+		<div class="row font-weight-bold text-default text-uppercase">
+			<div class="col">Product <span class="badge badge-pill badge-default">Unit</span></div>
+			<div class="col">Quantity(edit)</div>
+			<div class="col">Unit Price</div>
+			<div class="col">Sub Total</div>
+		</div>
+	</div>
+
+	{% for order in active_orders %}
+	<div class="card card-body no-radius">
+		<div class="row">
+			<div class="col"><a href="{{ order.product.get_absolute_url }}" class="card-link text-default">{{ order.product }}</a> <span class="badge badge-pill badge-default"><span id="orderQty" class="mx-0"> {{ order.quantity }}</span></span></div>
+			<div class="col">
+				<div class="row">
+					<div class="col">
+						<form method="POST" id="updateQ" action="{% url 'update-cart-item' order.product.id order.order_num %}">
+							{% csrf_token %}
+						
+							{{ update_form.quantity }}
+							<button type="submit" id="remove" class="btn btn-default update fas fa-redo-alt"></button>
+
+
+						</form>
+					</div>
+					<div class="col"> </div>
+				</div>
+				<!-- <input type="number" value="{{ order.quantity }}" max="{{ order.product.quantity }}" name="qty" id="Qty"> -->
+
+			</div>
+
+
+			<div class="col">₦<span id="orderPrice">{% if order.product.offer_price %}{{ order.product.offer_price|intcomma }} {% else %}{{ order.product.price|intcomma }} {% endif %}</span></div>
+			<div class="col">
+				<div class="row">
+					<div class="col">₦<span id="totalPrice">{{ order.price|intcomma }}</span></div>
+					<div class="col">
+						<form method="POST" action="{% url 'delete-cart-item' order.product.id order.order_num %}">
+							{% csrf_token %}
+							<button type="submit" id="remove" class="btn btn-sec remove far fa-trash-alt"></button>
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% endfor %}
+
+	<p class="alert bg-default text-white text-uppercase font-weight-bold text-right no-radius" style="padding-right:147px;">Total: ₦<span id="allTotal">{{ active_order.get_total_price|intcomma }} </span>
+	</p>
+	<form action="#" method="post">
+		{% csrf_token %}
+		{{ order_form.order }}
+		<input type="submit" id="cart-btn" class="btn btn-sec text-uppercase btn-block no-radius" value="Proceed To Checkout">
+
+
+	</form>
+
+	{% else %}
+	<div class="card card-body no-radius">
+		<p class="alert alert-default text-center no-radius"> Your cart is empty! </p>
+		{% if user.is_authenticated %}
+
+		<p class="card-text text-center"> Once you add a product to cart, it will appear here. </p>
+		{% else %}
+		<p class="card-text text-center">Please login to see your your cart! </p>
+		{% endif %}
+
+
+	</div>
+	{% endif %}
+
+
+</div>
+
+
+
+
+<!-- <script> 
+ var we =localStorage.getItem("orders", "Nokia M7");
+ var you =JSON.parse(localStorage.getItem('orders'));
+
+ console.log(you);
+ document.write(you);
+//  console.log(we);
+</script> -->
+
+
+<script src="{% static '/js/cart.js' %}"></script>
+
+{% endblock %}

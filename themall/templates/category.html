@@ -1,0 +1,23 @@
+{% extends 'mallbase.html '%}
+{% load static %}
+{% block title %} Category {% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row no-gutters">
+        {% for product in items %}
+
+        {% include 'product-card.html' %}
+   
+        {% empty %}
+        Sorry, no Products in this Category at the moment.
+
+        {% endfor %}
+
+
+    </div>
+</div>
+
+
+
+
+{% endblock content %}

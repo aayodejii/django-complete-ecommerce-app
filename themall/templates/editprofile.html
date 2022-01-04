@@ -1,0 +1,81 @@
+{% extends 'mallbase.html' %}
+{% block title %} Edit Information {% endblock %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+
+	<div class="mx-auto" style="width:;">
+		<div class="card text-white bg-default no-radius mb-3" style="max-width:;">
+			<h5 class="card-header">Edit Contact Information</h5>
+			<!--div class="card"  style="width:345px"-->
+			<div class="card-body">
+				<form action="{% url 'editinfo' %}" method="POST">
+					<!-- Very Important csrf Token -->
+					{% csrf_token %}
+					<div class="form-row">
+						<div class="form-group col-md-4">
+							<label for="inputEmail">Email</label>
+							{{ form.email }}
+							{{ form.email.errors }}
+
+						</div>
+						<div class="form-group col-md-4">
+							<label for="inptFirstName">First Name</label>
+							{{ form.first_name }}
+							{{ form.first_name.errors }}
+
+						</div>
+						<div class="form-group col-md-4">
+							<label for="LastName">Last Name</label>
+						{{ form.last_name }}
+						{{ form.last_name.errors }}
+
+						</div>
+
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="inputAddress">Full Address</label>
+						{{ form.address }}
+						{{ form.address.errors }}
+						</div>
+						<div class="form-group col-md-4">
+							<label for="inputPhone">Phone</label>
+							{{ form.phone }}
+							{{ form.phone.errors }}
+
+						</div>
+						<div class="form-group col-md-4">
+							<label for="inputCity">City</label>
+							{{ form.city }}
+							{{ form.city.errors }}
+						</div>
+						<div class="form-group col-md-4">
+							<label for="Country">Country</label>
+							{{ form.country }}
+						{{ form.country.errors }}
+					</div>
+
+					</div>
+					<br>
+
+					<br>
+					{% for message in messages %}
+
+					<p> {{ message }} </p>
+					{% endfor %}
+
+					<input type="submit" name="update" class="btn btn-light no-radius" value="Update">
+				</form>
+				<hr>
+				<p class="card-text">Go back to profile | <a href="{% url 'customer' %}" class="card-link">Profile Details</a> </p>
+			</div>
+		</div>
+	</div>
+
+
+
+
+</div>
+{% endblock %}

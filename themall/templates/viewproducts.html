@@ -1,0 +1,121 @@
+{% extends 'mallbase.html '%}
+{% load static %}
+{% block title %} Admin - Manage Products {% endblock %}
+
+{% block content %}
+
+<div class="container">
+	{% if messages %}
+	<div class="alert alert-primary" id="message" role="alert">
+		{% for message in messages %}
+		<p> {{ message }} </p>
+		{% endfor %}</div>
+	{% endif %}
+	
+	<!--Product Management Form-->
+	<h3 class="alert alert-info text-uppercase text-center no-radius">Add Product to {{ category }} Category <button class="btn btn-info btn-block visibility no-radius" id="addToggler">Show Form</button></h3>
+	
+	<form method="POST" action="" id="productForm" style="display:none;" enctype="multipart/form-data">
+		{% csrf_token %}
+		{{ add_form.errors }}
+		{{ details_form.errors }}
+		<div class="form-row">
+			<div class="form-group col-md-4">
+				<label for="inputProduct4">Product</label>
+				{{ add_form.name }}
+			</div>
+			<div class="form-group col-md-4">
+				<label for="inputQuantity4">Quantity</label>
+				{{ add_form.quantity }}
+			</div>
+			<div class="form-group col-md-4">
+				<label for="inputCategory4">Category</label>
+				<!-- {{ add_form.category }} -->
+				<input type="text" class="form-control" placeholder="{{ category|capfirst }}" disabled>
+			</div>
+		</div>
+		<!--Product Details Form-->
+		<div class="form-row">
+			<div class="form-group col-md-4">
+				<label for="inputPrice">Price</label>
+				{{ add_form.price }}
+			</div>
+			<div class="form-group col-md-4">
+				<label for="inputOff">Percent Off</label>
+				{{ add_form.percent_off }}
+			</div>
+			<div class="form-group col-md-4">
+				<label for="inputOffer">Offer Price</label>
+				{{ add_form.offer_price }}
+			</div>
+		</div>
+		<hr>
+
+		<div class="form-row">
+			<div class="form-group col-md-4">
+				<label for="inputPrice">Brand</label>
+				{{ details_form.brand }}
+			</div>
+			<div class="form-group col-md-4">
+				<label for="inputOff">Color</label>
+				{{ details_form.color }}
+			</div>
+			<div class="form-group col-md-4">
+				<label for="inputOffer">Size</label>
+				{{ details_form.size }}
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="inputOffer">Description</label>
+			{{ details_form.description }}
+		</div>
+		<div class="custom-file">
+			{{ details_form.picture }}
+
+			<label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+		</div>
+
+
+		<button type="submit" id="formBtn" class="btn btn-block btn-info no-radius mb-4">Add Product</button>
+	</form>
+
+	<!--Table: displays product information-->
+	<table class="table table-hover table-bordered table-dark">
+		<thead>
+			<tr>
+				<th scope="col">Product</th>
+				<th scope="col">Price</th>
+				<th scope="col">Quantity</th>
+				<th scope="col">Percent Off</th>
+				<th scope="col">Offer Price</th>
+				<th scope="col">Edit</th>
+				<th scope="col">Del.</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for products in all_products %}
+			<tr id="rowItem">
+				<td id="itemName"><a href="{% url 'manageproductdetails' products.url %}">{{ products.name }} </a></td>
+				<td id="itemPrice">{{ products.price }}</td>
+				<td id="itemQty">{{ products.quantity }}</td>
+				<td id="itemPercentOff">{{ products.percent_off }}</td>
+				<td id="itemOfferPrice">{{ products.offer_price }}</td>
+				<td><a href="{% url 'productupdate' category|slugify products.url %}"><i class="fas fa-pencil-alt edit"  data-toggle="tooltip" data-placement="top" title="Edit"></i></a></td>
+				<td><a href=""><i class="fas fa-trash-alt delete text-danger" data-toggle="tooltip" data-placement="top" title="Delete"></i> </a></td>
+			</tr>
+
+			{% empty %}
+
+	<tr><td>Sorry, no product in this category at the moment.</td></tr>
+
+	{% endfor %}
+</tbody>
+</table>
+
+</div>
+
+
+<script src="{% static '/js/manageproduct.js' %}"></script>
+
+{% endblock %}

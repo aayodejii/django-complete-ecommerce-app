@@ -1,0 +1,32 @@
+{% extends 'mallbase.html' %}
+{% load static %}
+{% block title %} Search {% endblock %}
+
+
+
+{% block content %} 
+
+<div class="row no-gutters">
+
+{% for product in query %}
+
+{% include 'product-card.html' %} 
+
+{% empty %} 
+<div class="card card-body">
+    <p style="font-size:40px" class="card-text text-center">No search found!</p>
+
+        {% include 'search-bar.html' %}
+  
+</div>
+{% endfor %} 
+</div>
+
+
+
+
+
+
+{% endblock content %}
+
+

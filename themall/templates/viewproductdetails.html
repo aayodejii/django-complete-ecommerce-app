@@ -1,0 +1,56 @@
+{% extends 'mallbase.html '%}
+{% load static %}
+{% block title %} Admin - Manage Products Details {% endblock %}
+{% block content %}
+
+<div class="container">
+	<!--Table: display product details if any, each product has a parent in Manage Products page-->
+    <table class="table table-hover table-bordered table-dark">
+        <thead>
+        	<tr>
+                <th scope="col">Product</th>
+                <th scope="col">Color</th>
+                <th scope="col">Size</th>
+            </tr>
+        </thead>
+        <tbody>
+		{% if details %}
+		<tr>
+			<td>{{ details.product }}</td>
+			<td>{{ details.color }}</td>
+			<td>{{ details.size }}</td>
+		</tr>
+		</tbody>
+	</table>
+
+<div class="card no-radius">
+    <h3 class="card-header">Description</h3>
+    <div class="card-body">
+        <p class="card-text">{{ details.description }}</p> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero nulla officiis repellendus laboriosam fugiat voluptatum, quis voluptatem quod fugit molestias inventore. 
+        Voluptatum iusto beatae ab tempore aliquam aperiam accusamus quod? Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum quam necessitatibus repudiandae voluptatem! Laboriosam autem, et porro atque nihil corrupti consequatur alias sit, quibusdam distinctio reiciendis magnam praesentium molestiae cum?
+        Facilis vel optio dolorem corrupti quaerat ratione quos magni deserunt doloremque ipsum porro quis perferendis accusantium sequi libero nesciunt labore, adipisci inventore saepe excepturi repudiandae. Nulla officia voluptas tenetur quibusdam!
+        Voluptatem quam eos eum dicta, qui officia nostrum debitis ratione quos dolorum consequuntur nemo soluta corporis ab animi illum similique commodi quis ipsa optio, cupiditate autem molestiae? Iusto, iure quo.
+    </div>
+</div>
+
+{% else %}
+Sorry, no Details at the moment.
+{% endif %}
+<div class="row no-gutters">
+{% for image in product.image_set.all %}
+<div class="col-3">
+    <div class="card card-body">
+        <img src="{{ image.picture.url }}" alt="" class="card-img">
+    
+    </div>    
+</div>
+
+{% endfor %}
+</div>
+<br>
+<br>
+<br>
+<br>
+</div>
+
+{% endblock %}

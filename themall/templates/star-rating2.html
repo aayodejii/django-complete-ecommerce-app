@@ -1,0 +1,89 @@
+<p class="card-text mall-text text-sec">
+        {% if review.rating == 0.0 %}
+       <small class="text-muted">No rating yet</small>
+        <i class="far fa-star" id="starI" title="1"></i>
+        <i class="far fa-star" id="starII" title="2"></i>
+        <i class="far fa-star" id="starIII" title="3"></i>
+        <i class="far fa-star" id="starIV" title="4"></i>
+        <i class="far fa-star" id="starV" title="5"></i>
+        <!--0 star-->
+        {% elif review.rating > 0 and  review.rating <= 0.4 %}
+        <i class="far fa-star" id="starI" title="1"></i>
+        <i class="far fa-star" id="starII" title="2"></i>
+        <i class="far fa-star" id="starIII" title="3"></i>
+        <i class="far fa-star" id="starIV" title="4"></i>
+        <i class="far fa-star" id="starV" title="5"></i>
+        <!--half star-->
+        {% elif review.rating >= 0.5 and review.rating <  1.0 %}
+        <i class="fas fa-star-half-alt" id="starI" title="1"></i>
+        <i class="far fa-star" id="starII" title="2"></i>
+        <i class="far fa-star" id="starIII" title="3"></i>
+        <i class="far fa-star" id="starIV" title="4"></i>
+        <i class="far fa-star" id="starV" title="5"></i>
+        <!--1 star-->
+        {% elif review.rating >= 1.0 and review.rating <  1.5 %}
+        <i class="fas fa-star" id="starI" title="1"></i>
+        <i class="far fa-star" id="starII" title="2"></i>
+        <i class="far fa-star" id="starIII" title="3"></i>
+        <i class="far fa-star" id="starIV" title="4"></i>
+        <i class="far fa-star" id="starV" title="5"></i>
+        <!--1 half star-->
+        {% elif review.rating >= 1.5 and review.rating <  2.0 %}
+        <i class="fas fa-star" id="starI" title="1"></i>
+        <i class="fas fa-star-half-alt" id="starII" title="2"></i>
+        <i class="far fa-star" id="starIII" title="3"></i>
+        <i class="far fa-star" id="starIV" title="4"></i>
+        <i class="far fa-star" id="starV" title="5"></i>
+        <!--2 stars-->
+        {% elif review.rating >= 2.0 and review.rating <  2.5 %}
+        <i class="fas fa-star" id="starI" title="1"></i>
+        <i class="fas fa-star" id="starII" title="2"></i>
+        <i class="far fa-star" id="starIII" title="3"></i>
+        <i class="far fa-star" id="starIV" title="4"></i>
+        <i class="far fa-star" id="starV" title="5"></i>
+        <!--2 half stars-->
+        {% elif review.rating >= 2.5 and review.rating <  3.0 %}
+        <i class="fas fa-star" id="starI" title="1"></i>
+        <i class="fas fa-star" id="starII" title="2"></i>
+        <i class="fas fa-star-half-alt" id="starIII" title="3"></i>
+        <i class="far fa-star" id="starIV" title="4"></i>
+        <i class="far fa-star" id="starV" title="5"></i>
+        <!--3 stars-->
+        {% elif review.rating >= 3.0 and review.rating <  3.5 %}
+        <i class="fas fa-star" id="starI" title="1"></i>
+        <i class="fas fa-star" id="starII" title="2"></i>
+        <i class="fas fa-star" id="starIII" title="3"></i>
+        <i class="far fa-star" id="starIV" title="4"></i>
+        <i class="far fa-star" id="starV" title="5"></i>	
+        <!--3 half stars-->
+        {% elif review.rating >= 3.5 and review.rating <  4.0 %}
+        <i class="fas fa-star" id="starI" title="1"></i>
+        <i class="fas fa-star" id="starII" title="2"></i>
+        <i class="fas fa-star" id="starIII" title="3"></i>
+        <i class="fas fa-star-half-alt" id="starIV" title="4"></i>
+        <i class="far fa-star" id="starV" title="5"></i>
+        <!--4 stars-->
+        {% elif review.rating >= 4.0 and review.rating <  4.5 %}
+        <i class="fas fa-star" id="starI" title="1"></i>
+        <i class="fas fa-star" id="starII" title="2"></i>
+        <i class="fas fa-star" id="starIII" title="3"></i>
+        <i class="fas fa-star" id="starIV" title="4"></i>
+        <i class="far fa-star" id="starV" title="5"></i>	
+        <!--4 half stars-->
+        {% elif review.rating >= 4.5 and review.rating <  5.0 %}
+        <i class="fas fa-star" id="starI" title="1"></i>
+        <i class="fas fa-star" id="starII" title="2"></i>
+        <i class="fas fa-star" id="starIII" title="3"></i>
+        <i class="fas fa-star" id="starIV" title="4"></i>
+        <i class="fas fa-star-half-alt" id="starV" title="5"></i>
+        <!--5 stars-->
+        {% elif review.rating >= 5.0 %}
+        <i class="fas fa-star" id="starI" title="1"></i>
+        <i class="fas fa-star" id="starII" title="2"></i>
+        <i class="fas fa-star" id="starIII" title="3"></i>
+        <i class="fas fa-star" id="starIV" title="4"></i>
+        <i class="fas fa-star" id="starV" title="5"></i>
+        {% endif %}
+        
+     </p>
+     

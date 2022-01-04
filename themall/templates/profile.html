@@ -1,0 +1,114 @@
+{% extends 'mallbase.html' %}
+{% load static %}
+{% block title %} SoloMall - {{ user.last_name }}'s Information {% endblock %}
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+      <div class="card card-body no-radius">
+        <h4 class="card-text text-danger"> Account Information </h4>
+      </div>
+      <div class="card card-body text-default no-radius">
+        <h5 class="card-text text-danger"> Personal Details </h5>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <p class="card-text">Full Name: {{ user.first_name }} {{ user.last_name }} 
+              <span class="badge badge-default float-right"">Seller</span>
+            </p>
+            
+          </li>
+        </ul>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <p class="card-text">City: {{ user.city }}</p>
+          </li>
+        </ul>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <p class="card-text">Country: {{ user.country }}</p>
+          </li>
+
+        </ul>
+      </div>
+      <div class="card card-body text-default no-radius">
+        <h5 class="card-text text-danger"> Contact Information </h5>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <p class="card-text">Email: <span id="customerEmail">{{ user.email }}</span>
+
+          </li>
+          <li class="list-group-item">
+
+            <p class="card-text">Phone: {{ user.phone }}
+            </p>
+          </li>
+          <li class="list-group-item">
+
+            <p class="card-text">Address: {{ user.address }} {{ user.city }}, {{ user.country }} </p>
+          </li>
+        </ul>
+        <hr>
+        <a href="{% url 'editinfo' %}" class="btn btn-outline-danger btn-sm no-radius">Edit</a>
+      </div>
+      <div class="card card-body text-default no-radius">
+          <h5 class="card-text text-danger"> Store Information </h5>
+          <ul class="list-group">
+            <li class="list-group-item">
+              <p class="card-text">Store Name: <span id="customerEmail">{{ user.email }}</span>
+  
+            </li>
+            <li class="list-group-item">
+  
+              <p class="card-text">Phone: {{ user.phone }}
+              </p>
+            </li>
+            <li class="list-group-item">
+  
+              <p class="card-text">Address: {{ user.address }} {{ user.city }}, {{ user.country }} </p>
+            </li>
+          </ul>
+          <hr>
+          <a href="{% url 'editinfo' %}" class="btn btn-outline-danger btn-sm no-radius">Visit Your Store</a>
+        </div>
+    </div>
+    <div class="col-4">
+      <div class="card card-body text-default no-radius mb-2">
+        <h5 class="card-text text-danger"> Order History </h5>
+        <hr>
+        <ul class="list-group">
+          {% for order in orders %}
+          <li class="list-group-item">{{ order.order_num }}</li>
+
+          {% empty %}
+          Sorry! You don't have any order yet!
+          {% endfor %}
+        </ul>
+        <a href="{% url 'orderhistory' %}" class="btn btn-outline-danger btn-sm no-radius">See Details</a>
+
+      </div>
+      <div class="card card-body no-radius">
+        <h5 class="card-text text-danger"> Wishlist </h5>
+        <hr>
+        <ul class="list-group">
+          {% for wish in user.wishlist_set.all %}
+          <li class="list-group-item"> <a href="{% url 'product' wish.product %}" class="card-link text-default"><span
+                id="wishedItem">{{ wish.product }}</span></a> <a href="" id="wishLink" class="float-right" data-toggle="tooltip" data-placement="top" title="Remove"><i
+                class="far fa-times-circle text-danger remove"></i></a></li>
+          {% empty %}
+          Your Wishlist is empty
+          {% endfor %}
+        </ul>
+
+        <a href="{% url 'orderhistory' %}" class="btn btn-outline-danger btn-sm no-radius">See more</a>
+
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+<script src="{% static '/js/profile.js' %}"></script>
+
+{% endblock %}

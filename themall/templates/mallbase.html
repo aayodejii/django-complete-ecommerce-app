@@ -1,0 +1,97 @@
+<!-- This is the template that renders the navigation bar, footer and the overall styling. -->
+
+<!--this tag is used to load static contents like images, CSS and Javascript-->
+{% load static %}
+{% load humanize %}
+
+{% load custom_tags %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title> {% block title %} SoloMall {% endblock %} </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--CSS files-->
+  <link rel="stylesheet" href="{% static '/css/bootstrap/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static '/css/bootstrap/css/bootstrap.css' %}">
+  <link rel="stylesheet" href="{% static '/css/bootstrap/open-iconic-master/font/css/open-iconic-bootstrap.css' %}">
+  <link rel="stylesheet" href="{% static '/css/custom/style.css' %}">
+  <link rel="stylesheet" href="{% static '/css/custom/side-bar.css' %}">
+  <link rel="stylesheet" href="{% static 'font-awesome/css/all.css' %}">
+  <link rel="stylesheet" href="{% static 'widgEditor_1.0.1/css/widgEditor.css' %}">
+
+  <!--Javascript files-->
+  <script src="{% static '/css/bootstrap/js/bootstrap.js' %}"></script>
+  <script src="{% static '/css/bootstrap/js/jquery.min.js' %}"></script>
+  <script src="{% static '/css/bootstrap/js/bootstrap.min.js' %}"></script>
+  <!-- <script src="../../ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script> -->
+</head>
+
+<body>
+  <!--Navigation bar-->
+  <div class="mall-nav">
+    <div class="container">
+      <ul>
+        <li><a href="{% url 'home' %}"> Home </a></li>
+        {% if user.is_superuser%}
+        <li><a href="{% url 'dashboard' %}"> Dashboard </a></li>
+        {% endif %}
+        <span class float-right>
+          <li class="float-right"> <a href="{% url 'cart' %}"><i class="fas fa-shopping-cart"></i> Cart<span
+                class="badge badge-pill badge-default" id="cartItem">
+                {%  cart_item key=request.session.session_key user=request.user %} </span> </a>
+          </li>
+          {% if user.is_authenticated  %}
+          <li class="float-right"><a href="{% url 'customer' %}"> <i class="fas fa-user-check"></i>
+          {% if user.profile_completed  %}
+          {{ user.last_name }}
+          {% else %}
+          Account
+          {% endif %}
+            </a></li>
+          <li class="float-right"><a href="{% url 'logout' %}"> <i class="fas fa-sign-out-alt"></i> Logout </a></li>
+          {% else %}
+          <li class="float-right"><a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login </a></li>
+          <li class="float-right"><a href="{% url 'customer' %}"><i class="fas fa-user"></i> Profile
+            </a></li>
+          {% endif %}
+          <li class="float-right"><a href="{% url 'become-a-seller' %}"><i class="fas fa-sign-in-alt"></i> Become a seller </a></li>
+
+        </span>
+      </ul>
+    </div>
+  </div>
+  {% block breadcrumb %}
+  
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb" id="breadCrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item"><a href="">{{ product.category }}</a></li>
+      <!-- <li class="breadcrumb-item"><a href="#">Category</a></li> -->
+      <!-- <li class="breadcrumb-item active" aria-current="page">Data</li> -->
+      <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
+    </ol>
+  </nav>
+  {% endblock breadcrumb %}
+
+  {% block content %}
+
+
+  {% endblock content %}
+
+
+<script src="{% static '/js/scripts.js' %}"></script>
+<script src="{% static '/js/side-bar.js' %}"></script>
+
+
+<footer>
+  SoloMALL
+</footer>
+
+</body>
+
+</html>

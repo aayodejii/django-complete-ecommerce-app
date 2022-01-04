@@ -1,0 +1,98 @@
+{% extends 'mallbase.html' %}
+
+
+{% block content %}
+<div class="container">
+    <!-- {{product.productdetail.picture.url}} -->
+	<!--Product Management Form-->
+	<h3 class="alert alert-info text-uppercase text-center no-radius">Edit {{ product }} in {{ product.category }} Category <button class="btn btn-info btn-block visibility no-radius" id="addToggler">Show Form</button></h3>
+	
+	<form method="POST" action="" id="productForm" enctype="multipart/form-data">
+		{% csrf_token %}
+		{{ add_form.errors }}
+		{{ details_form.errors }}
+		<div class="form-row">
+			<div class="form-group col-md-4">
+				<label for="inputProduct4">Product</label>
+				{{ add_form.name }}
+			</div>
+			<div class="form-group col-md-4">
+				<label for="inputQuantity4">Quantity</label>
+				{{ add_form.quantity }}
+			</div>
+			<div class="form-group col-md-4">
+				<label for="inputCategory4">Category</label>
+				<!-- {{ add_form.category }} -->
+				<input type="text" class="form-control" placeholder="{{ product.category|capfirst }}" disabled>
+			</div>
+		</div>
+		<!--Product Details Form-->
+		<div class="form-row">
+			<div class="form-group col-md-4">
+				<label for="inputPrice">Price</label>
+				{{ add_form.price }}
+			</div>
+			<div class="form-group col-md-4">
+				<label for="inputOff">Percent Off</label>
+				{{ add_form.percent_off }}
+			</div>
+			<div class="form-group col-md-4">
+				<label for="inputOffer">Offer Price</label>
+				{{ add_form.offer_price }}
+			</div>
+		</div>
+		<hr>
+
+		<div class="form-row">
+			<div class="form-group col-md-4">
+				<label for="inputPrice">Brand</label>
+				{{ details_form.brand }}
+			</div>
+			<div class="form-group col-md-4">
+				<label for="inputOff">Color</label>
+				{{ details_form.color }}
+			</div>
+			<div class="form-group col-md-4">
+				<label for="inputOffer">Size</label>
+				{{ details_form.size }}
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="inputOffer">Description</label>
+			{{ details_form.description }}
+		</div>
+		<div class="custom-file">
+			{{ details_form.picture }}
+			
+			Currently: <a href="{{ product.productdetail.picture.url }}">{{ product.productdetail.picture }}</a>
+
+			<label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+		</div>
+
+
+		<button type="submit" id="formBtn" class="btn btn-block btn-info no-radius mb-4">Update Product</button>
+
+</form>
+<div class="row no-gutters">
+	{% for image in product.image_set.all %}
+	<div class="col-3">
+		<div class="card card-body">
+			<img src="{{ image.picture.url }}" alt="" class="card-img">
+			<div class="row no-gutters">
+				<div class="col-1">
+					<input type="checkbox" class="text-muted" name="{{ image.id }}" value="Bike"></div>
+				<div class="col"><p class="card-text text-muted">Delete</p></div>
+
+			</div>
+			
+			
+		
+		</div>    
+	</div>
+	
+	{% endfor %}
+	</div>
+</div>
+{% endblock content %}
+

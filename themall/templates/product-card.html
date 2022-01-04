@@ -1,0 +1,26 @@
+{% load humanize %}
+<!--standard way of href instead -->
+{% if false %}
+{% url 'product' product.url as prod %}
+<a href="{{ prod }}">
+  <div class="col-sm-2 mall-col mx-1 h-100">
+    <div class="card no-radius mall-col " style="width:;">
+      <img src="{{ product.productdetail.picture.url }}" class="card-img-top no-radius " alt="{{ product.name }}">
+      {% if product.percent_off %}
+      <span class="offer">
+        <p class="mall-text"> -{{ product.percent_off}}% </p>
+      </span>
+      {% endif %}
+      <div class="card-body">
+        <a href="{{ product.get_absolute_url }}" class="card-link text-default">{{ product.name }}</a>
+        <p class="card-text">{% if product.offer_price %} <small> <del>₦{{ product.price|intcomma }}</del>
+            ₦{{ product.offer_price|intcomma }}</small>
+          {% else %} <small> ₦{{ product.price|intcomma }}</small> {% endif %} </p>
+        <small>
+          {% include 'star-rating.html' %}
+        </small>
+      </div>
+    </div>
+  </div>
+</a>
+{% endif %}

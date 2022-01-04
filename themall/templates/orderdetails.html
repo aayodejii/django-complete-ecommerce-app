@@ -1,0 +1,57 @@
+{% extends 'mallbase.html '%}
+{% load static %}
+{% load humanize %}
+
+{% block title %} Admin - Manage Orders Details  {% endblock %}
+{% block content %}
+<div class="container">
+<p class="alert alert-dark text-uppercase font-weight-bold no-radius mb-0">Order Number: {{ order.order_num }} | Status: {{ order.status }} | Total Price: ₦{{ order.get_total_price|intcomma }} </p>
+<table class="table table-hover table-bordered table-dark">
+    <thead>
+    	<tr>
+            <th scope="col">Product</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col">Bill Date</th>
+            <th scope="col">Ship Date</th>
+        </tr>
+    </thead>
+    <tbody>
+	{% for detail in details %}
+	<tr>
+        <td>{{ detail.product }}</td>
+        <td>{{ detail.quantity }}</td>
+        <td>₦{{ detail.price|intcomma }}</td>
+        <td>{{ detail.bill_date|naturalday|capfirst }}</td>
+        <td>{{ detail.ship_date }}</td>
+    </tr>
+{% empty %}
+<div class="card card-body bg-dark text-light no-radius">
+    <card-text>Sorry, no Orders at the moment.</card-text>
+</div> 
+   
+    
+{% endfor %}
+</tbody>
+</table>
+{% if customer is not None %}
+<ul class="list-group no-radius ">
+    <li class="list-group-item active no-radius">CUSTOMER INFORMATION</li>
+    <li class="list-group-item list-group-item-dark"><b>FULL NAME: </b>{{ customer.first_name }} {{ customer.last_name }}</li>
+    <li class="list-group-item list-group-item-dark"><b>EMAIL: </b>{{ customer.email }}</li>
+    <li class="list-group-item list-group-item-dark"><b>PHONE: </b>{{ customer.phone }}</li>
+    <li class="list-group-item list-group-item-dark"><b>LOCATION: </b>{{ customer.city }}, {{ customer.country }}</li>
+    <li class="list-group-item list-group-item-dark"><b>ADDRESS:</b>{{ customer.address }}</li>
+</ul>
+{% else %}
+<div class="card card-body bg-dark text-light no-radius">
+    <card-text>This order does not include any customer information yet. </card-text>
+</div>
+{% endif %}
+
+
+</div>
+
+
+
+{% endblock %}

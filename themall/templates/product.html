@@ -1,0 +1,194 @@
+{% extends 'mallbase.html '%}
+{% load static %}
+{% load humanize %}
+{% block title %} SoloMall - {{ product.name }} {% endblock %}
+{% block content %}
+{{ error }}
+
+<div class="container">
+
+	<div class="row">
+		<div class="col-sm-8">
+			<div class="card no-radius">
+				<h5 id="product" class="card-header mall-nav text-sec"> {{ product.name }} </h5>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-sm-4 mall-col">
+							<img src="{{ product.productdetail.picture.url }}" alt="..." class="card-img"
+								data-toggle="modal" data-target="#productImages">
+							{% include 'img-carousel.html' %}
+
+						</div>
+						<div class="col-sm-8 mall-col">
+							<!-- <p id="rating"></p> -->
+							<p class="card-text mall-text text-default"> Brand: {{ product.productdetail.brand }} </p>
+							<!--Rating-->
+							<small>
+								{% include 'star-rating.html' %}
+							</small>
+
+
+							<h5 class="text-default">{% if product.offer_price %}
+								<del>₦{{ product.price|intcomma }}</del> ₦{{ product.offer_price|intcomma }} {% else %}
+								₦{{ product.price|intcomma }} {% endif %}</h5>
+							{% if product.offer_price %}
+							<small class="text-sec"> You get to save ₦{{ product.price_difference }}</small>
+							{% endif %}
+
+							<form method="POST" action="{% url 'wishlist' product.url %}">
+								{% csrf_token %}
+
+								<button type="submit" id="wishlist" class="btn btn-sm btn-outline-sec no-radius"><i
+										class="fas fa-heart"></i>Add to Wishlist</button>
+							</form>
+
+							<hr>
+
+							<form method="POST">
+								{% csrf_token %}
+
+								{% if messages %}
+								<div class="alert alert-default no-radius text-default" id="message" role="alert">
+									{% for message in messages %}
+									<p> {{ message }} </p>
+									{% endfor %}</div>
+								{% endif %}
+								{{ order_form.order }}
+
+								<div class="row">
+									<div class="col-3">{{ order_form.quantity }}</div>
+
+									<div class="col-9">
+										<input type="submit" id="order-btn" class="btn btn-default btn-block no-radius"
+											value="Add to cart">
+									</div>
+								</div>
+							</form>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="card no-radius">
+				<div class="card-body">
+					stoooo 2
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+
+	<div class="row">
+		<div class="col-sm-8">
+			<div class="card no-radius">
+				<h6 class="card-header mall-nav  text-sec"> Product Description </h6>
+				<div class="card-body">
+					<p class="card-text"> {{ product.productdetail.description }} {% lorem %} </p>
+					<hr>
+
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="card no-radius">
+								<h6 class="card-header alert-default text-sec"> Specifications </h6>
+								<ul class="list-group list-group-flush">
+									<li class="list-group-item">Size: {{ product.productdetail.size }}</li>
+									<li class="list-group-item">Color: {{ product.productdetail.color}}</li>
+									<li class="list-group-item">Vestibulum at eros</li>
+								</ul>
+								<div class="card-body">
+									trrr
+									<hr>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="card no-radius">
+								<h6 class="card-header alert-default text-sec"> What's Included </h6>
+								<ul class="list-group list-group-flush">
+									<li class="list-group-item">Cras justo odio</li>
+									<li class="list-group-item">Dapibus ac facilisis in</li>
+									<li class="list-group-item">Vestibulum at eros</li>
+								</ul>
+								<div class="card-body">
+									jjuuu
+
+									<hr>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			{% if can_review %}
+			<form action="{% url 'review' product.name %}" method="post">
+				{% csrf_token %}
+				{{ review_form.review }}
+				<div class="form-group row no-gutters mb-0">
+						<div class="col-sm-2">
+						</div>
+						<div class="col-sm-8">
+								{{ review_form.rating }}
+
+						</div>
+						<div class="col-sm-2">
+								<button type="submit" class="btn btn-default no-radius">Review</button>
+
+						</div>
+						</div>
+			</form>
+			{% endif %}
+			
+			<div class="card card-body no-radius">
+					<div class="row">
+	
+						<div class="col-6">
+							<p class="text-right">
+								{% include 'star-rating.html' %}
+							</p>
+							<p class="card-text"> {{ product.rating|floatformat:1 }} of 5.0</p>
+							<small class="text-muted">{{ product.rated_times }} Reviews</small>
+						</div>
+					</div>
+				</div>
+			{% for review in product.review_set.all %}
+			<div class="card card-body p-2 mb-1 no-radius">
+				<div class="row">
+					<div class="col-6">
+						<p class="card-text">
+							<strong>{{ review.customer.last_name }} {{ review.customer.first_name|truncatechars:2 }}
+								</strong>	
+
+						</p>
+						edit
+					</div>
+					<div class="col-6">
+						<small>
+							{% include 'star-rating2.html' %}
+							</small>
+					
+					</div>
+				</div>
+				<hr class="mt-1">
+				<p class="card-text">{{ review|capfirst }}</p>
+			</div>
+			{% endfor %}
+
+
+
+
+
+		</div>
+
+
+	</div>
+</div>
+
+
+</div>
+
+<script src="{% static '/js/product.js' %}"></script>
+{% endblock %}

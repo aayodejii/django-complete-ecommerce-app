@@ -1,0 +1,67 @@
+{% extends 'mallbase.html' %}
+{% load static %}
+{% block title %} SoloMall - SignUp {% endblock %}
+{% block content %}
+
+<div class="container">
+
+{# Display a form #}
+<div class="container ">
+    <div class="mx-auto" style="width: 345px;">
+        <div class="card text-white bg-default no-radius mb-3" style="max-width: 28rem;">
+                  <h5 class="card-header">Create an Account!</h5>
+        <!--div class="card"  style="width:345px"-->
+            <div class="card-body">
+        <form action = "" method="POST">
+                <!-- Very Important csrf Token -->
+                {% csrf_token %}
+            
+                <div class="input-group">
+    <div class="input-group-prepend">
+      <div class="input-group-text text-default no-radius" id="btnGroupAddon">
+        <i class="fas fa-envelope"></i>
+      </div>
+    </div>
+                {{ form.email }}
+              
+            </div>
+              <br>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text text-default no-radius" id="btnGroupAddon">
+                   <i class="fas fa-lock"></i>
+
+                  </div>
+                </div>
+                            {{ form.password1 }}
+            </div> 
+            <br>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text text-default no-radius" id="btnGroupAddon">
+                   <i class="fas fa-lock"></i>
+
+                  </div>
+                </div>
+                            {{ form.password2 }}
+            </div>
+                <br>
+                {{ form.errors }}
+                {% for message in messages %}
+
+                {{ message }}
+                {% endfor %}
+
+            <input type="submit" name="login" class="btn btn-light no-radius" value="Create">
+        </form> 
+<hr>
+<p class="card-text">Already have an account? |  <a href="{% url 'login' %}" class="card-link">Login</a> </p>
+<p class="card-text"><small class="text-muted"><a href="#" class="card-link">Forget Password</a></small></p>
+    </div>
+  </div>
+</div>
+</div>
+
+
+</div>
+{% endblock %}

@@ -1,0 +1,162 @@
+{% extends 'adminbase.html' %}
+{% load static %}
+{% block title %} Admin - Dashboard {% endblock %}
+
+{% block content %}
+
+
+
+<div class="admin-nav">
+    <ul>
+        <li>
+            <h5 class="card-title">  <i class="fas fa-tachometer-alt"></i> SoloMall - Dashboard </h5>
+        </li>
+        <li class="float-right">
+            <a href="" class=""><i class="fas fa-sign-out-alt"></i>Logout</a>
+
+        </li>
+        <li class="float-right"><a href="" class=""><i class="fas fa-user-cog"></i>Profile</a>
+        </li>
+
+    </ul>
+
+
+</div>
+    <ul class="sidebar-menu">
+        <li class="sidebar-menu"><a class="active" href="#home"><i class="fas fa-home"></i> Home</a></li>
+        <li class="sidebar-menu">
+            <a class="card-link text-light menu" href="#home" id="menu"><i class="fas fa-boxes"></i> Products</a>
+            <div class="sub-menu" id="subMenu">
+                <ul>
+                    <li><a href="">All Products</a></li>
+                    <li><a href="">Most Bought</a></li>
+                    <li><a href="">Out of Stock</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="sidebar-menu"> <a href="{% url 'manageorders' %}" class="card-link text-light "><i class="fas fa-shopping-basket"></i> Orders </a></li>
+        <li class="sidebar-menu"><a href="{% url 'managecategory' %}" class="card-link text-light"><i class="fas fa-object-ungroup"></i> Category </a></li>
+        <li class="sidebar-menu"><a href="{% url 'managecustomer' %}" class="card-link text-light"> <i class="fas fa-users"></i> Customers</a></li>
+        
+<div class="dropdown" style="float:left;">
+  <div class="dropdown-content" style="left:0;">
+    <a href="#">Link 1</a>
+    <a href="#">Link 2</a>
+    <a href="#">Link 3</a>
+  </div>
+</div>
+
+       
+
+    
+
+
+
+
+    </ul>
+    <button class="dropbtn">Left</button>
+
+    <div style="margin-left:10%; padding:61px 16px;height:500px;">
+
+       
+      
+       
+
+
+<div class="row">
+    <div class="col-sm-2">
+        <div class="card">
+            <div class="card-head">
+                <h4 class="card-header  bg-dark text-light">Category</h4>
+            </div>
+            <ul class="list-group list-group-flush">
+                {% for category in all_category %}
+
+                <li class="list-group-item  bg-dark"> <a href="{% url 'category' category.name|lower %}"
+                        class="text-light card-text"> {{ category.name }}
+                    </a>
+                </li>
+
+                {% empty %}
+
+                {% endfor %}
+            </ul>
+            <div class="card-body">
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col-sm-2">
+        <div class="card no-radius">
+            <div class="card-head">
+                <h4 class="card-header bg-dark text-light">Recent Orders</h4>
+                <ul class="list-group list-group-flush">
+                    {% for order in recent %}
+
+                    <li class="list-group-item bg-dark"> <a href="{% url 'manageorderdetails' order.order_num %}"
+                            class="text-light card-text">
+                            {{ order.order_num }} </a>
+                    </li>
+
+                    {% empty %}
+
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="card-body">
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-sm-8">
+            <div class="row">
+
+            <div class="col-6 ">
+
+        <div class="card card-body bg-dark text-light p-1 no-radius">
+            <h6>In Summary</h6> 
+        </div>
+        <div class="card card-body bg-dark text-light  no-radius ">
+            <div class="col-12 d-flex justify-content-center ">
+                <a href="{% url 'manageorders' %}" class="card-link text-light">Orders <span
+                    class="badge badge-info">20</span></a>
+                <a href="{% url 'manageorders' %}" class="card-link text-light ">Category <span
+                        class="badge badge-info">{{ all_category.count }}</span></a>
+                        <a href="{% url 'manageorders' %}" class="card-link text-light">Out of stock <span
+                            class="badge badge-info">{{ oos_count }}</span></a>
+                    <span>Products <span class="badge badge-info">{{ total_products }}</span></span>
+                </div>
+        </div>
+                </div>
+                <div class="col-6">
+        <div class="card card-body bg-dark text-light p-1 no-radius ">
+            <h6>Recently</h6> 
+        <div class="card card-body bg-dark text-light p-1 no-radius ">
+                    
+{{recent.count}} new orders
+                 </div>
+
+                    
+                </div>
+            </div>
+            </div>
+
+
+            
+            <hr>
+         
+        </div>
+    </div>
+
+
+
+
+</div>
+</div>
+
+
+<script src="{% static '/js/sidebar.js' %}"></script>
+
+{% endblock %}
